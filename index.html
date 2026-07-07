@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Shahriar Sayon — Frontend Developer &amp; AI Tool Builder</title>
+<meta name="description" content="Al Shahriar Sayon — Computer Science student, frontend developer, and AI tool builder. Precision-built digital experiences.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+<div class="grain"></div>
+<div id="cursor-glow"></div>
+<div id="cursor-ring"></div>
+
+<header id="site-header">
+  <div class="logo">A.S.S — <span style="opacity:.5">Designer &amp; Engineer</span></div>
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-kicker"><span class="line-inner">Computer Science · Frontend · AI</span></div>
+    <h1 class="hero-title">
+      <span><span class="line-inner">AL SHAHRIAR</span></span>
+      <span><span class="line-inner">SOWAN</span></span>
+    </h1>
+    <div class="hero-roles">
+      <span>Frontend Developer</span><span class="dot">·</span>
+      <span>AI Tool Builder</span><span class="dot">·</span>
+      <span>Minecraft Tools Creator</span>
+    </div>
+    <p class="hero-sub">I build premium digital experiences with precision, simplicity, and modern engineering.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-portrait" aria-hidden="true">
+    <img src="me.png" alt="Al Shahriar Sayon">
+  </div>
+  <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2 class="reveal">Engineering interfaces with the same discipline as a machined part.</h2>
+    </div>
+    <div class="about-text">
+      <p class="reveal">I'm a Computer Science student who builds software the way I'd want to use it — quiet, precise, and considered down to the pixel. My work sits at the intersection of frontend engineering, AI tooling, and interface craft.</p>
+      <p class="reveal">Recently I've been building <strong style="color:var(--text-primary);font-weight:500">Seed Bot</strong>, a Windows desktop AI chatbot, alongside a set of Minecraft creator tools and AI-assisted utilities — all built with the same principle: fewer, better decisions.</p>
+      <p class="reveal">Outside of shipping product, I spend time in prompt engineering, modern UI systems, and the small details most people build to move past instead of through.</p>
+      <div class="about-facts">
+        <div class="reveal"><div class="fact-num num">3+</div><div class="fact-label">Years Building Software</div></div>
+        <div class="reveal"><div class="fact-num num">10+</div><div class="fact-label">Tools &amp; Utilities Shipped</div></div>
+        <div class="reveal"><div class="fact-num num">CS</div><div class="fact-label">Computer Science Student</div></div>
+        <div class="reveal"><div class="fact-num num">AI</div><div class="fact-label">Prompt &amp; Tool Engineering</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="eyebrow">Skills</div>
+  <h2 class="reveal" style="font-size:clamp(34px,4.5vw,54px);max-width:640px;">A focused toolkit, kept sharp.</h2>
+  <div class="chip-field">
+    <div class="chip reveal">HTML</div><div class="chip reveal">CSS</div><div class="chip reveal">JavaScript</div>
+    <div class="chip reveal">TypeScript</div><div class="chip reveal">React</div><div class="chip reveal">Next.js</div>
+    <div class="chip reveal">Python</div><div class="chip reveal">Node.js</div><div class="chip reveal">Git</div>
+    <div class="chip reveal">GitHub</div><div class="chip reveal">Linux</div><div class="chip reveal">Figma</div>
+    <div class="chip reveal">Three.js</div><div class="chip reveal">GSAP</div><div class="chip reveal">Spline</div>
+    <div class="chip reveal">Minecraft</div><div class="chip reveal">AI APIs</div><div class="chip reveal">Prompt Engineering</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="eyebrow">Selected Work</div>
+  <h2 class="reveal" style="font-size:clamp(34px,4.5vw,54px);max-width:640px;">Products built with precision.</h2>
+
+  <div class="project-list">
+
+    <div class="project-card reveal" data-tilt>
+      <div class="project-media"><span class="project-index">01</span></div>
+      <div class="project-body">
+        <div class="project-tag">Desktop · AI</div>
+        <h3>Seed Bot</h3>
+        <p>A Windows desktop AI chatbot built with a modular architecture, supporting multiple AI provider gateways and encrypted local storage.</p>
+        <div class="tech-tags"><span>Python</span><span>PySide6</span><span>OpenAI SDK</span><span>SQLite</span></div>
+        <div class="project-links">
+          <a href="#">GitHub →</a>
+          <a href="#">Case Study →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tilt>
+      <div class="project-media"><span class="project-index">02</span></div>
+      <div class="project-body">
+        <div class="project-tag">Tooling</div>
+        <h3>Minecraft Seed Generator</h3>
+        <p>A fast, focused tool for generating and exploring Minecraft world seeds — built for creators who need reliable, repeatable results.</p>
+        <div class="tech-tags"><span>JavaScript</span><span>Algorithms</span><span>Web</span></div>
+        <div class="project-links">
+          <a href="#">GitHub →</a>
+          <a href="#">Live Demo →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tilt>
+      <div class="project-media"><span class="project-index">03</span></div>
+      <div class="project-body">
+        <div class="project-tag">Web</div>
+        <h3>Minecraft Paper Character Website</h3>
+        <p>A character-focused companion site for Paper server communities, built with clean information architecture and fast load times.</p>
+        <div class="tech-tags"><span>React</span><span>Next.js</span></div>
+        <div class="project-links">
+          <a href="#">GitHub →</a>
+          <a href="#">Live Demo →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-tilt>
+      <div class="project-media"><span class="project-index">04</span></div>
+      <div class="project-body">
+        <div class="project-tag">AI Utilities</div>
+        <h3>AI Utilities &amp; Future Products</h3>
+        <p>A growing set of AI-assisted utilities and experiments — the early stage of products still being shaped, refined, and shipped.</p>
+        <div class="tech-tags"><span>AI APIs</span><span>Prompt Engineering</span></div>
+        <div class="project-links">
+          <a href="#">Read More →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="eyebrow">Experience</div>
+  <h2 class="reveal" style="font-size:clamp(34px,4.5vw,54px);max-width:640px;">A path shaped by building.</h2>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2025 — Present</div>
+      <h3>Independent Developer</h3>
+      <p>Building Seed Bot and a set of AI-assisted tools, focused on production-quality architecture and premium interface design.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2023 — Present</div>
+      <h3>Computer Science Student</h3>
+      <p>Studying core CS fundamentals while applying them directly to real, shipped software rather than isolated coursework.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2022 — 2024</div>
+      <h3>Minecraft Tools &amp; Community Projects</h3>
+      <p>Designed and released creator tools for the Minecraft community, including seed generation utilities and companion websites.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="techstack">
+  <div class="eyebrow">Tech Stack</div>
+  <h2 class="reveal" style="font-size:clamp(34px,4.5vw,54px);max-width:640px;">Instruments of the craft.</h2>
+  <div class="stack-grid">
+    <div class="stack-cell reveal"><h4>Frontend</h4><ul><li>React</li><li>Next.js</li><li>TypeScript</li><li>GSAP</li></ul></div>
+    <div class="stack-cell reveal"><h4>Backend</h4><ul><li>Python</li><li>Node.js</li><li>SQLite</li></ul></div>
+    <div class="stack-cell reveal"><h4>Tools</h4><ul><li>Git</li><li>GitHub</li><li>Linux</li></ul></div>
+    <div class="stack-cell reveal"><h4>Design</h4><ul><li>Figma</li><li>Spline</li></ul></div>
+    <div class="stack-cell reveal"><h4>AI</h4><ul><li>OpenAI SDK</li><li>Prompt Engineering</li></ul></div>
+    <div class="stack-cell reveal"><h4>Game Dev</h4><ul><li>Minecraft Tooling</li></ul></div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="eyebrow">Certificates</div>
+  <h2 class="reveal" style="font-size:clamp(34px,4.5vw,54px);max-width:640px;">Formalized knowledge.</h2>
+  <div class="cert-row">
+    <div class="cert-card reveal"><span class="num">01</span><h4>Add certificate title</h4><p>Issuing organization · Year</p></div>
+    <div class="cert-card reveal"><span class="num">02</span><h4>Add certificate title</h4><p>Issuing organization · Year</p></div>
+    <div class="cert-card reveal"><span class="num">03</span><h4>Add certificate title</h4><p>Issuing organization · Year</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2 class="reveal">Let's build something great.</h2>
+      <div class="contact-links">
+        <a href="mailto:hello@example.com" class="reveal">Email <span class="arrow">→</span></a>
+        <a href="#" class="reveal">GitHub <span class="arrow">→</span></a>
+        <a href="#" class="reveal">LinkedIn <span class="arrow">→</span></a>
+        <a href="#" class="reveal">Discord <span class="arrow">→</span></a>
+        <a href="#" class="reveal">Location — Dhaka, Bangladesh <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <form class="reveal" onsubmit="event.preventDefault();">
+      <div class="form-field"><label>Name</label><input type="text" placeholder="Your name" /></div>
+      <div class="form-field"><label>Email</label><input type="email" placeholder="you@example.com" /></div>
+      <div class="form-field"><label>Message</label><textarea placeholder="Tell me about your project"></textarea></div>
+      <button type="submit" class="btn btn-primary" style="margin-top:6px;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div>Designed &amp; Built by Al Shahriar Sayon</div>
+  <div>© 2026</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
