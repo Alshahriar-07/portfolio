@@ -134,10 +134,11 @@ section{position:relative;z-index:5;padding:160px 48px;max-width:1360px;margin:0
   right:clamp(16px,3vw,48px);
   top:50%;
   transform:translateY(-50%);
-  width:min(34vw,460px);
-  max-width:460px;
+  width:min(42vw,640px);
+  max-width:640px;
   z-index:1;
   pointer-events:none;
+  animation:heroPortraitLoad 1.2s ease-out both;
 }
 .hero-portrait img{
   width:100%;
@@ -145,6 +146,7 @@ section{position:relative;z-index:5;padding:160px 48px;max-width:1360px;margin:0
   display:block;
   object-fit:contain;
   filter:drop-shadow(0 24px 60px rgba(0,0,0,0.45));
+  animation:heroPortraitImageLoad 1.2s ease-out both;
 }
 .hero-kicker{
   font-family:'Space Grotesk',sans-serif;
@@ -209,6 +211,14 @@ section{position:relative;z-index:5;padding:160px 48px;max-width:1360px;margin:0
 }
 @keyframes scrolldrop{
   0%{transform:translateY(-100%);} 100%{transform:translateY(250%);} 
+}
+@keyframes heroPortraitLoad{
+  0%{opacity:0; transform:translateY(-50%) scale(0.95);} 
+  100%{opacity:1; transform:translateY(-50%) scale(1);} 
+}
+@keyframes heroPortraitImageLoad{
+  0%{opacity:0; transform:translateY(12px) scale(0.98);} 
+  100%{opacity:1; transform:translateY(0) scale(1);} 
 }
 @media (max-width:980px){
   .hero-inner{padding-right:0;text-align:center;}
