@@ -1,12 +1,12 @@
 {
-  "name": "Al Shahriar Sayon — Developer Portfolio",
-  "short_name": "Sayon",
+  "name": "Al Shahriar Sowan",
+  "short_name": "Sowan",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#151515",
   "theme_color": "#151515",
-  "description": "Portfolio of Al Shahriar Sayon, a frontend developer and AI tool builder crafting modern digital experiences.",
+  "description": "Portfolio of Al Shahriar Sowan, a frontend developer and AI tool builder crafting modern digital experiences.",
   "icons": [
     {
       "src": "/icon-192.png",
