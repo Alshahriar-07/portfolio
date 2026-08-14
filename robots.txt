@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alshahriarsowan.vercel.app/sitemap.xml

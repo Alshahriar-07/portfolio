@@ -1,0 +1,22 @@
+{
+  "name": "Al Shahriar Sayon — Developer Portfolio",
+  "short_name": "Sayon",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#151515",
+  "theme_color": "#151515",
+  "description": "Portfolio of Al Shahriar Sayon, a frontend developer and AI tool builder crafting modern digital experiences.",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
