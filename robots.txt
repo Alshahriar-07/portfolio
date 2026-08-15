@@ -12,4 +12,4 @@ Allow: /site.webmanifest
 Allow: /styles.css
 Allow: /script.js
 
-Sitemap: https://alshahriarsowan.vercel.app/sitemap.xml
+Sitemap: https://alshahriarsayon.vercel.app/sitemap.xml
