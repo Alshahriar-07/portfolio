@@ -8,21 +8,72 @@
 /out/
 next-env.d.ts
 
-# production
-/build
+# build output
+/build/
+/dist/
 
-# misc
-.DS_Store
-*.pem
+# deployment
+.vercel/
+
+# test output
+coverage/
+test-results/
+test-results-*/
+test-output/
+test-reports/
+playwright-report/
+blob-report/
+cypress/results/
+cypress/videos/
+cypress/screenshots/
+.nyc_output/
+
+# Exact hero and verify PNG files from directory
+hero-1024.png
+hero-1366.png
+hero-1440.png
+hero-1728.png
+hero-390.png
+verify-1024.png
+verify-1366.png
+verify-1440.png
+verify-1728.png
+verify-390.png
+verify-current-1728.png
+verify-products.png
+# logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+
+# certificates and keys
+*.pem
+
+# caches, temporary and OS-generated files
+.eslintcache
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+.tmp-*/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# typescript
 *.tsbuildinfo
 
 # env files
 .env*
 !.env.example
+!.env.sample
+
+# IDE
+.idea/
 
 # local planning + verification artifacts
 resume.txt

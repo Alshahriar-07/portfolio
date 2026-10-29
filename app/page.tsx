@@ -12,7 +12,9 @@ import { profile } from "@/lib/content/site";
 import { homeStructuredData, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: `${profile.name} — ${profile.role}`,
+  // Keeps the role keyword coverage the previous HTML site had in its title
+  // ("Frontend Developer & AI Tool Builder") without changing visible copy.
+  title: `${profile.name} — Software Developer`,
   description: profile.metaDescription,
   path: "/",
 });

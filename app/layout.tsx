@@ -5,6 +5,7 @@ import { IntroOverlay } from "@/components/motion/IntroOverlay";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { GrainOverlay } from "@/components/visuals/GrainOverlay";
+import { ResumeToast } from "@/components/ui/ResumeToast";
 import { profile } from "@/lib/content/site";
 import { siteUrl, socialImage } from "@/lib/seo";
 import "./globals.css";
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description: profile.metaDescription,
-    images: [socialImage.url],
+    images: [socialImage],
   },
   icons: {
     icon: [
@@ -90,11 +91,13 @@ export const viewport: Viewport = {
 };
 
 /**
- * Runs before first paint, synchronously: decides once per session whether the
- * cinematic intro should play. Without it (JS blocked) no class is added and
- * the page renders fully visible immediately.
+ * Runs before the first paint and records session/JS state on a dedicated
+ * element in <head>. React does not hydrate head nodes, so this state never
+ * conflicts with the server-rendered <html> class list (which only carries
+ * the next/font variables). Without JS, no state element exists and the page
+ * renders fully visible with the intro hidden.
  */
-const bootScript = `try{if(!sessionStorage.getItem("intro-seen")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("intro-active","js")}else{document.documentElement.classList.add("js")}}catch(e){document.documentElement.classList.add("js")}`;
+const bootScript = `var intro=false;try{intro=!sessionStorage.getItem("intro-seen")&&!matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}try{var s=document.createElement("style");s.id="boot-state";s.className=intro?"js intro-active":"js";document.head.appendChild(s)}catch(e){}`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -108,6 +111,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         {children}
         <RevealObserver />
+        <ResumeToast />
         <GrainOverlay />
       </body>
     </html>

@@ -54,7 +54,7 @@ The phone number and personal address in the PDF are intentionally not published
 | Asset | Path | Notes |
 | --- | --- | --- |
 | Original resume | `assets/Al_Shahriar_Sowan_Resume_Professional...pdf` | Untouched |
-| Downloadable resume | `public/Al-Shahriar-Sowan-Resume.pdf` | Byte-identical copy |
+| Downloadable resume | `public/Al_Shahriar_Sowan_Resume.pdf` | Current resume, served as-is |
 | Portrait | `assets/me.png` | Original preserved; served copy at `public/assets/me.png` |
 | Project previews | `public/projects/*.webp` | Captured from the live project interfaces, Oct 2026 |
 | Browser favicon | `app/favicon.ico` | Supplied multi-size ICO, served by Next.js |
@@ -63,8 +63,9 @@ The phone number and personal address in the PDF are intentionally not published
 | Apple touch icon | `app/apple-icon.png` | Supplied 180 px asset, served by Next.js |
 | App icon | `app/icon.png` | Supplied 192 px icon, served by Next.js |
 
-The hero download action points at `/Al-Shahriar-Sowan-Resume.pdf` with the
-`download="Al-Shahriar-Sowan-Resume.pdf"` attribute.
+The hero download action points at `/Al_Shahriar_Sowan_Resume.pdf` with the
+`download="Al_Shahriar_Sowan_Resume.pdf"` attribute. Every resume link on the
+site reads `profile.resume` from `lib/content/site.ts`.
 
 ## Sections
 

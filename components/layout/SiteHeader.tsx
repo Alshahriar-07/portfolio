@@ -17,7 +17,6 @@ type BodyLock = {
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
   const bodyLockRef = useRef<BodyLock | null>(null);
 
   const restoreBodyScroll = useCallback(() => {
@@ -53,12 +52,24 @@ export function SiteHeader() {
     body.style.top = `-${window.scrollY}px`;
     body.style.width = "100%";
     body.style.overflow = "hidden";
-    const focusFrame = window.requestAnimationFrame(() => firstMenuLinkRef.current?.focus());
+    // The panel is still `visibility: hidden` during the frame that opens it,
+    // and a hidden element cannot take focus, so wait for the frame after it is
+    // painted. Without this the menu opened with focus left on the document.
+    let focusFrameInner = 0;
+    const focusFrame = window.requestAnimationFrame(() => {
+      focusFrameInner = window.requestAnimationFrame(() => {
+        document
+          .getElementById("mobile-primary-navigation")
+          ?.querySelector<HTMLElement>("a[href]")
+          ?.focus();
+      });
+    });
 
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") closeMenu(true);
     };
-    window.addEventListener("keydown", onKeyDown);    const desktopQuery = window.matchMedia("(min-width: 1280px)");
+    window.addEventListener("keydown", onKeyDown);
+    const desktopQuery = window.matchMedia("(min-width: 1280px)");
     const onDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) closeMenu();
     };
@@ -66,6 +77,7 @@ export function SiteHeader() {
 
     return () => {
       window.cancelAnimationFrame(focusFrame);
+      window.cancelAnimationFrame(focusFrameInner);
       window.removeEventListener("keydown", onKeyDown);
       desktopQuery.removeEventListener("change", onDesktop);
       restoreBodyScroll();
@@ -108,12 +120,12 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-line/60 bg-ink/75 backdrop-blur-md">
+    <header className="site-header fixed inset-x-0 top-0 z-50">
       <div className="shell flex h-[var(--header-h)] items-center justify-between gap-4">
         <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`${profile.name} — home`}>
           <Image src="/icons/icon-192.png" alt="" aria-hidden="true" width={36} height={36} className="size-8 shrink-0 object-contain sm:size-9" />
           <span className="flex min-w-0 flex-col gap-1">
-            <span className="truncate font-mono text-[9px] uppercase leading-none tracking-[0.12em] text-paper sm:text-[10px] sm:tracking-[0.15em]">
+            <span className="truncate font-mono text-[11px] uppercase leading-none tracking-[0.12em] text-paper sm:text-xs sm:tracking-[0.15em]">
               {profile.name}
             </span>
             <span className="font-mono text-[8px] uppercase leading-none tracking-[0.12em] text-dim sm:text-[9px]">
@@ -152,7 +164,6 @@ export function SiteHeader() {
             {navLinks.map((link, index) => (
               <li key={link.href} className="border-b border-line/70">
                 <Link
-                  ref={index === 0 ? firstMenuLinkRef : undefined}
                   href={link.href}
                   onClick={() => closeMenu()}
                   className="flex min-h-16 items-center justify-between gap-4 font-display text-3xl font-medium uppercase tracking-[-0.04em] text-paper focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-paper"

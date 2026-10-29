@@ -42,7 +42,7 @@ const sourceFiles = [
 ];
 sourceFiles.forEach((file) => expectFile(file));
 
-const resumePath = expectFile("public/Al-Shahriar-Sowan-Resume.pdf", "resume PDF");
+const resumePath = expectFile("public/Al_Shahriar_Sowan_Resume.pdf", "resume PDF");
 if (resumePath) {
   const header = readFileSync(resumePath).subarray(0, 5).toString("utf8");
   expect(header === "%PDF-", "Resume file has a valid PDF header");
@@ -73,6 +73,10 @@ if (ogPath) {
 
 const site = read("lib/content/site.ts");
 const siteUrl = "https://alshahriarsayon.vercel.app";
+expect(
+  site.includes('publicPath: "/Al_Shahriar_Sowan_Resume.pdf"'),
+  "Resume link points at the PDF served from public/",
+);
 expect(site.includes(siteUrl), `Content uses the production origin ${siteUrl}`);
 expect(!/alshahriarsowan\.vercel\.app/i.test(site), "Content does not reference the old domain");
 
@@ -93,6 +97,8 @@ expect(llms.includes("product.website") && llms.includes("product.description"),
 expect(llms.includes("${siteUrl}/products"), "llms.txt links the products page");
 expect(llms.includes("${siteUrl}/contact"), "llms.txt links the contact page");
 expect(llms.includes("## Products") && llms.includes("## Website Pages"), "llms.txt has products and pages sections");
+expect(llms.includes("profile.email"), "llms.txt includes the public contact email");
+expect(llms.includes("does not guarantee indexing"), "llms.txt does not promise indexing or ranking");
 expect(!llms.includes("process.env"), "llms.txt does not expose environment variables");
 
 const verificationPath = "public/google21a248609224cf2d.html";
@@ -107,7 +113,8 @@ expect(robots.includes("${siteUrl}/sitemap.xml"), "robots.txt references the pro
 expect(robots.includes('allow: "/"'), "robots.txt allows public crawling");
 
 const sitemap = read("app/sitemap.ts");
-expect(sitemap.includes("${siteUrl}/"), "sitemap includes the homepage");
+expect(sitemap.includes("url: siteUrl"), "sitemap homepage URL matches the canonical form");
+expect(sitemap.includes("${siteUrl}/products") && sitemap.includes("${siteUrl}/contact"), "sitemap includes every public route");
 expect(sitemap.includes("${siteUrl}/products"), "sitemap includes /products");
 expect(sitemap.includes("${siteUrl}/contact"), "sitemap includes /contact");
 expect(!sitemap.includes("lastModified"), "sitemap does not invent last-modified dates");
@@ -145,6 +152,7 @@ expect(globalError.includes("onClick={reset}"), "Global error boundary exposes a
 const nextConfig = read("next.config.ts");
 expect(nextConfig.includes("X-Content-Type-Options"), "Security headers include nosniff");
 expect(nextConfig.includes("Referrer-Policy"), "Security headers include a referrer policy");
+expect(nextConfig.includes('source: "/me.png"') && nextConfig.includes('destination: "/assets/me.png"'), "Legacy image URLs redirect to their Next.js equivalents");
 
 if (baseUrl) {
   const routes = [
@@ -159,6 +167,7 @@ if (baseUrl) {
     ["/favicon.ico", 200],
     ["/icons/favicon-32x32.png", 200],
     ["/apple-icon.png", 200],
+    ["/Al_Shahriar_Sowan_Resume.pdf", 200],
     ["/this-route-should-not-exist", 404],
   ];
 
@@ -209,6 +218,21 @@ if (baseUrl) {
       }
     } catch (error) {
       failures.push(`${route} request failed: ${error.message}`);
+    }
+  }
+
+  for (const [from, to] of [
+    ["/me.png", "/assets/me.png"],
+    ["/site.webmanifest", "/manifest.webmanifest"],
+    ["/apple-touch-icon.png", "/apple-icon.png"],
+  ]) {
+    try {
+      const response = await fetch(`${baseUrl}${from}`, { redirect: "manual" });
+      const location = response.headers.get("location") ?? "";
+      expect([301, 308].includes(response.status), `${from} redirects permanently (${response.status})`);
+      expect(location.endsWith(to), `${from} redirects to ${to}`);
+    } catch (error) {
+      failures.push(`${from} redirect check failed: ${error.message}`);
     }
   }
 } else {

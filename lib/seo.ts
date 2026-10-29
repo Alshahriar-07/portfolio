@@ -36,13 +36,14 @@ export function pageMetadata({ title, description, path }: PageMetadataInput): M
       card: "summary_large_image",
       title,
       description,
-      images: [socialImage.url],
+      images: [socialImage],
     },
   };
 }
 
 const personId = `${siteUrl}/#person`;
 const websiteId = `${siteUrl}/#website`;
+const siteName = `${profile.name} — ${profile.role}`;
 
 export function homeStructuredData() {
   return {
@@ -51,8 +52,9 @@ export function homeStructuredData() {
       {
         "@type": "WebSite",
         "@id": websiteId,
-        url: `${siteUrl}/`,
-        name: `${profile.name} — ${profile.role}`,
+        url: siteUrl,
+        name: siteName,
+        alternateName: "Al Shahriar Sowan Portfolio",
         description: profile.metaDescription,
         inLanguage: "en",
         publisher: { "@id": personId },
@@ -62,11 +64,14 @@ export function homeStructuredData() {
         "@id": personId,
         name: profile.name,
         alternateName: profile.alternateName,
-        url: `${siteUrl}/`,
+        url: siteUrl,
         image: `${siteUrl}/assets/me.png`,
-        jobTitle: "Independent Developer",
+        email: `mailto:${profile.email}`,
+        jobTitle: "Software Developer",
         description: profile.summary,
-        sameAs: [profile.links.github, profile.links.linkedin],
+        // Discord is carried over from the previous site's Person markup so the
+        // existing identity links are not dropped during the migration.
+        sameAs: [profile.links.github, profile.links.linkedin, "https://discord.com/users/al_shahriar007"],
         knowsAbout: [
           "AI tools",
           "LLM integration",
@@ -80,8 +85,8 @@ export function homeStructuredData() {
       {
         "@type": "ProfilePage",
         "@id": `${siteUrl}/#webpage`,
-        url: `${siteUrl}/`,
-        name: `${profile.name} — ${profile.role}`,
+        url: siteUrl,
+        name: siteName,
         description: profile.metaDescription,
         isPartOf: { "@id": websiteId },
         about: { "@id": personId },
@@ -97,13 +102,20 @@ export function productsStructuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: siteUrl,
+        name: siteName,
+        inLanguage: "en",
+      },
+      {
         "@type": "CollectionPage",
         "@id": `${siteUrl}/products#webpage`,
         url: `${siteUrl}/products`,
         name: `Products — ${profile.name}`,
         description:
           "Seven independent projects across AI development tools, AI chat, Android, web development, email technology, and browser-based tools.",
-        isPartOf: { "@type": "WebSite", name: `${profile.name} — Portfolio`, url: `${siteUrl}/` },
+        isPartOf: { "@id": websiteId },
         inLanguage: "en",
         mainEntity: { "@id": `${siteUrl}/products#products` },
       },
@@ -121,6 +133,7 @@ export function productsStructuredData() {
             applicationCategory: product.category,
             description: product.description,
             url: product.website,
+            author: { "@type": "Person", name: profile.name, url: siteUrl },
           },
         })),
       },
@@ -133,12 +146,19 @@ export function contactStructuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: siteUrl,
+        name: siteName,
+        inLanguage: "en",
+      },
+      {
         "@type": "ContactPage",
         "@id": `${siteUrl}/contact#webpage`,
         url: `${siteUrl}/contact`,
         name: `Contact — ${profile.name}`,
         description: `Contact ${profile.name} about websites, software, AI tools, and independent product work.`,
-        isPartOf: { "@type": "WebSite", name: `${profile.name} — Portfolio`, url: `${siteUrl}/` },
+        isPartOf: { "@id": websiteId },
         inLanguage: "en",
         about: {
           "@type": "Person",

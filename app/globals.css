@@ -239,8 +239,137 @@
     transform: translateY(0);
   }
 
-  .form-feedback[data-state="success"] {
-    animation: fade-up 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  .form-feedback[data-state="error"] {
+    animation: fade-up 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /*
+   * Contact success screen. It replaces the form once the provider confirms
+   * delivery, so it is a full block rather than a note below the fields.
+   * Nothing here starts hidden: the entrance is part of the animation, which
+   * means reduced motion (or a failed animation) still leaves content visible.
+   */
+  .contact-success {
+    display: flex;
+    min-height: clamp(21rem, 44vh, 29rem);
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--color-line);
+    background: var(--color-ink-raised);
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+    animation: fade-up 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .contact-success-mark {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(242, 242, 240, 0.5);
+    border-radius: 50%;
+    color: var(--color-paper);
+    animation: success-mark-in 520ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
+  }
+
+  .contact-success-mark svg {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .contact-success-title {
+    margin-top: clamp(1.5rem, 3vh, 2.1rem);
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4.3vw, 3.3rem);
+    font-weight: 550;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    animation: fade-up 560ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
+  }
+
+  .contact-success-title:focus,
+  .contact-success-title:focus-visible {
+    outline: none;
+  }
+
+  .contact-success-copy {
+    max-width: 34rem;
+    margin-top: clamp(0.9rem, 2vh, 1.3rem);
+    color: rgba(242, 242, 240, 0.72);
+    font-size: clamp(0.85rem, 1.05vw, 0.95rem);
+    line-height: 1.7;
+    animation: fade-up 560ms cubic-bezier(0.16, 1, 0.3, 1) 190ms both;
+  }
+
+  /* Resume download confirmation. One instance, restarted, never stacked. */
+  .toast-region {
+    position: fixed;
+    z-index: 70;
+    inset: auto clamp(1rem, 4vw, 2.5rem) max(1rem, env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+  }
+
+  .toast {
+    display: flex;
+    width: min(21rem, 100%);
+    align-items: center;
+    gap: 0.8rem;
+    border: 1px solid rgba(242, 242, 240, 0.26);
+    background: rgba(10, 10, 10, 0.97);
+    padding: 0.85rem 1.05rem;
+    color: var(--color-paper);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, 0.6rem, 0);
+    transition: opacity 240ms ease, transform 320ms cubic-bezier(0.16, 1, 0.3, 1), visibility 240ms;
+  }
+
+  .toast[data-visible="true"] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .toast-mark {
+    display: inline-flex;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(242, 242, 240, 0.45);
+    border-radius: 50%;
+  }
+
+  .toast-mark svg {
+    width: 0.72rem;
+    height: 0.72rem;
+  }
+
+  .toast-copy {
+    display: grid;
+    gap: 0.22rem;
+  }
+
+  .toast-copy strong {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .toast-copy span {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: rgba(242, 242, 240, 0.7);
   }
 
   /* Film grain */
@@ -355,11 +484,13 @@
   .hero-sculpture {
     position: absolute;
     z-index: -1;
-    top: 10%;
-    left: 55%;
-    width: min(68vw, 1180px);
-    height: 90%;
-    transform: translateX(-50%);
+    top: 52%;
+    right: clamp(1.5rem, 10.9vw, 11.5rem);
+    left: auto;
+    width: min(36.5vw, 680px);
+    aspect-ratio: 1;
+    height: auto;
+    transform: translateY(-50%);
     opacity: var(--scul-opacity, 0.92);
     pointer-events: none;
   }
@@ -397,10 +528,10 @@
   .hero-heading-wrap {
     position: absolute;
     z-index: 3;
-    top: 48%;
-    left: clamp(7.5%, 11.3vw, 13%);
-    width: min(79%, 1120px);
-    transform: translateY(-17%);
+    top: 50%;
+    left: clamp(1.5rem, 6.2vw, 6.5rem);
+    width: min(92%, 1320px);
+    transform: translateY(-18%);
   }
 
   .hero-editorial-title {
@@ -409,7 +540,7 @@
     max-width: 100%;
     color: #eeeeec;
     font-family: var(--font-display);
-    font-size: clamp(4.3rem, 8.75vw, 8.45rem);
+    font-size: clamp(4.8rem, 10.2vw, 10.5rem);
     font-weight: 650;
     line-height: 0.88;
     letter-spacing: -0.065em;
@@ -422,7 +553,7 @@
   }
 
   .hero-outline {
-    margin-left: 0.44em;
+    margin-left: 1.4em;
     color: transparent;
     font-weight: 450;
     -webkit-text-stroke: 1px rgba(238, 238, 236, 0.82);
@@ -575,15 +706,6 @@
   }
 
   @media (max-width: 1100px) {
-    .hero-heading-wrap {
-      left: 9%;
-      width: 82%;
-    }
-
-    .hero-editorial-title {
-      font-size: clamp(4.25rem, 9vw, 7.2rem);
-    }
-
     .hero-side-label {
       display: none;
     }
@@ -639,11 +761,13 @@
     }
 
     .hero-sculpture {
-      top: 24%;
-      left: 55%;
-      width: min(76vw, 390px);
-      height: 42%;
-      transform: translateX(-50%);
+      top: auto;
+      right: calc(var(--hero-gutter) + 6.6vw);
+      bottom: calc(61% + 0.5rem);
+      left: auto;
+      width: min(45.5vw, 16.25rem);
+      height: auto;
+      transform: none;
       --scul-opacity: 0.72;
     }
 
@@ -661,7 +785,7 @@
     }
 
     .hero-outline {
-      margin-left: 0.22em;
+      margin-left: 0.32em;
       -webkit-text-stroke-width: 0.85px;
     }
 
@@ -780,20 +904,16 @@
 
   @media (max-height: 700px) and (min-width: 761px) {
     .hero-editorial-title {
-      font-size: clamp(4rem, 7.7vw, 7rem);
+      font-size: clamp(4rem, 9.4vw, 10rem);
     }
 
     .hero-heading-wrap {
-      top: 48%;
+      top: 35%;
+      transform: translateY(-14%);
     }
 
     .hero-actions {
       margin-top: 1.35rem;
-    }
-
-    .hero-sculpture {
-      top: 8%;
-      height: 91%;
     }
   }
 
@@ -830,6 +950,17 @@
   }
 }
 
+@keyframes success-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes scroll-cue {
   0% {
     transform: translateY(-120%);
@@ -844,13 +975,16 @@
  * Motion system
  * =============
  * Three layers, gated so that content is never lost:
- *  - `html.intro-active` is only added by a blocking script when the intro
- *    should play this session (sessionStorage + reduced-motion aware).
+ *  - `#boot-state` is created in <head> by a blocking script before the first
+ *    paint, carrying `js` and, when the intro should play this session,
+ *    `intro-active` (sessionStorage + reduced-motion aware). It is read here
+ *    with `:has()` so no React-hydrated element is ever mutated before
+ *    hydration — mutating `html` is what used to trigger attribute warnings.
  *  - `html.route-armed` is only added after the first page has fully painted,
  *    so direct loads and refreshes get no curtain, but client navigations do.
- *  - `html.reveal-ready` is only added by the RevealObserver when
- *    IntersectionObserver exists and reduced motion is not requested.
- * Without JavaScript none of these classes exist and every element is visible.
+ *  - `html.reveal-ready` is only added by the RevealObserver after hydration
+ *    when IntersectionObserver exists and reduced motion is not requested.
+ * Without JavaScript no state element exists and every element is visible.
  */
 
 /* ---- 1. Intro overlay ------------------------------------------------- */
@@ -908,20 +1042,20 @@
   pointer-events: none;
 }
 
-html.intro-active .intro-overlay {
+html:has(#boot-state.intro-active) .intro-overlay {
   opacity: 1;
   visibility: visible;
   animation: intro-out 0.58s cubic-bezier(0.6, 0.04, 0.2, 1) 1.2s both;
 }
 
-html.intro-active .intro-stage {
+html:has(#boot-state.intro-active) .intro-stage {
   display: grid;
   justify-items: center;
   gap: clamp(0.9rem, 2vh, 1.3rem);
   text-align: center;
 }
 
-html.intro-active .intro-meta {
+html:has(#boot-state.intro-active) .intro-meta {
   overflow: hidden;
   font-family: var(--font-mono);
   font-size: 0.62rem;
@@ -930,12 +1064,12 @@ html.intro-active .intro-meta {
   color: rgba(242, 242, 240, 0.55);
 }
 
-html.intro-active .intro-meta > span {
+html:has(#boot-state.intro-active) .intro-meta > span {
   display: block;
   animation: intro-meta-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
 
-html.intro-active .intro-name {
+html:has(#boot-state.intro-active) .intro-name {
   overflow: hidden;
   max-width: 92vw;
   color: var(--color-paper);
@@ -947,12 +1081,12 @@ html.intro-active .intro-name {
   text-transform: uppercase;
 }
 
-html.intro-active .intro-name > span {
+html:has(#boot-state.intro-active) .intro-name > span {
   display: block;
   animation: intro-name-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
 }
 
-html.intro-active .intro-rule {
+html:has(#boot-state.intro-active) .intro-rule {
   width: clamp(4rem, 8vw, 7rem);
   height: 1px;
   background: rgba(242, 242, 240, 0.55);
@@ -1078,27 +1212,27 @@ html.reveal-ready [data-reveal="mask"][data-revealed] > .reveal-inner {
 
 /*
  * --hold delays the entrance while the intro overlay is on screen only
- * (html.intro-active), so the hero surfaces exactly as the overlay wipes
+ * (#boot-state.intro-active), so the hero surfaces exactly as the overlay wipes
  * away. Without the intro, --hold is 0 and the entrance starts on paint.
  */
 @media (prefers-reduced-motion: no-preference) {
-  html.js .site-header {
+  html:has(#boot-state.js) .site-header {
     animation: hero-fade 0.7s ease calc(100ms + var(--hold, 0ms)) both;
   }
 
-  html.js .hero-reveal {
+  html:has(#boot-state.js) .hero-reveal {
     animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--d, 0ms) + var(--hold, 0ms)) both;
   }
 
-  html.js .hero-reveal-fade {
+  html:has(#boot-state.js) .hero-reveal-fade {
     animation: hero-fade 0.9s ease calc(var(--d, 0ms) + var(--hold, 0ms)) both;
   }
 
-  html.js .hero-sculpture {
+  html:has(#boot-state.js) .hero-sculpture {
     animation: hero-fade 1.4s ease calc(60ms + var(--hold, 0ms)) both;
   }
 
-  html.intro-active {
+  html:has(#boot-state.intro-active) {
     --hold: 1250ms;
   }
 }
@@ -1116,7 +1250,7 @@ html.reveal-ready [data-reveal="mask"][data-revealed] > .reveal-inner {
     transition-duration: 0.01ms !important;
   }
 
-  html.intro-active .intro-overlay,
+  html:has(#boot-state.intro-active) .intro-overlay,
   html.trans-armed .route-content > .page-curtain {
     display: none !important;
   }

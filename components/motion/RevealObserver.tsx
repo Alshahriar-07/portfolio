@@ -27,10 +27,6 @@ export function RevealObserver() {
       return;
     }
 
-    // Idempotent: this effect re-runs on every route change, so new content
-    // gets its own observer even though the class is already set.
-    root.classList.add("reveal-ready");
-
     const pending = new Set<HTMLElement>();
 
     const reveal = (element: HTMLElement) => {
@@ -39,24 +35,27 @@ export function RevealObserver() {
       io?.unobserve(element);
     };
 
-    const io =
-      typeof IntersectionObserver === "function"
-        ? new IntersectionObserver(
-            (entries) => {
-              for (const entry of entries) {
-                if (entry.isIntersecting) reveal(entry.target as HTMLElement);
-              }
-            },
-            {
-              // Fire just before the element is comfortably inside the
-              // viewport so the reveal is always seen.
-              threshold: 0.15,
-              rootMargin: "0px 0px -10% 0px",
-            },
-          )
-        : null;
+    // Only hide reveal targets once there is a way to reveal them again;
+    // otherwise a missing observer would leave the page permanently blank.
+    if (typeof IntersectionObserver !== "function") return;
 
-    if (!io) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) reveal(entry.target as HTMLElement);
+        }
+      },
+      {
+        // Fire just before the element is comfortably inside the
+        // viewport so the reveal is always seen.
+        threshold: 0.15,
+        rootMargin: "0px 0px -10% 0px",
+      },
+    );
+
+    // Idempotent: this effect re-runs on every route change, so new content
+    // gets its own observer even though the class is already set.
+    root.classList.add("reveal-ready");
 
     const collect = () => {
       for (const element of document.querySelectorAll<HTMLElement>("[data-reveal]")) {

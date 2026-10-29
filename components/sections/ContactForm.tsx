@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Check, LoaderCircle, Send } from "@/components/ui/icons";
 
 type SubmissionState = "idle" | "sending" | "success" | "error";
@@ -11,7 +11,13 @@ const inputClass =
 export function ContactForm() {
   const [state, setState] = useState<SubmissionState>("idle");
   const [message, setMessage] = useState("");
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY?.trim();
+
+  // Move focus to the confirmation without scrolling the page under the reader.
+  useEffect(() => {
+    if (state === "success") successHeadingRef.current?.focus({ preventScroll: true });
+  }, [state]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,7 +52,7 @@ export function ContactForm() {
 
       form.reset();
       setState("success");
-      setMessage("Thanks for reaching out. Your message has been sent.");
+      setMessage("");
     } catch (error) {
       setState("error");
       const isNetworkError = error instanceof Error && error.message.toLowerCase().includes("failed to fetch");
@@ -56,6 +62,23 @@ export function ContactForm() {
           : "The message could not be sent. Please try again, or email me directly.",
       );
     }
+  }
+
+  if (state === "success") {
+    return (
+      <div className="contact-success" role="status" aria-live="polite">
+        <span className="contact-success-mark" aria-hidden="true">
+          <Check />
+        </span>
+        <h3 ref={successHeadingRef} tabIndex={-1} className="contact-success-title">
+          Thanks for contacting me
+        </h3>
+        <p className="contact-success-copy">
+          Your message has been sent successfully. I appreciate you reaching out and will get
+          back to you as soon as possible.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -97,18 +120,14 @@ export function ContactForm() {
         <p className="text-xs leading-relaxed text-muted">Required fields are marked with *.</p>
       </div>
 
-      {message ? (
+      {state === "error" && message ? (
         <div
-          className={`form-feedback flex min-h-12 items-start gap-3 border px-4 py-3 text-sm leading-relaxed ${state === "success" ? "border-line bg-ink-raised text-paper" : "border-line text-paper"}`}
-          data-state={state}
-          role={state === "error" ? "alert" : "status"}
-          aria-live={state === "error" ? "assertive" : "polite"}
+          className="form-feedback flex min-h-12 items-start gap-3 border border-line px-4 py-3 text-sm leading-relaxed text-paper"
+          data-state="error"
+          role="alert"
+          aria-live="assertive"
         >
-          {state === "success" ? <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0" /> : null}
-          <span>
-            {state === "success" ? <strong className="mb-1 block font-display text-base font-medium">Thank you for reaching out.</strong> : null}
-            {message}
-          </span>
+          <span>{message}</span>
         </div>
       ) : null}
     </form>

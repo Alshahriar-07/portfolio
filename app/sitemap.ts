@@ -4,7 +4,9 @@ import { siteUrl } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${siteUrl}/`,
+      // Matches the homepage canonical exactly: Next.js normalises a root URL
+      // to the bare origin, so the sitemap uses the same form.
+      url: siteUrl,
       changeFrequency: "monthly",
       priority: 1,
     },

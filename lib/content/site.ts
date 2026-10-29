@@ -39,12 +39,11 @@ export const profile = {
   },
   resume: {
     /**
-     * The original PDF lives in assets/ and is never modified.
-     * A byte-identical copy is served from public/ for the download action.
+     * The single, current resume PDF served from public/. Keep these values in
+     * sync with the filename on disk — every resume link reads them from here.
      */
-    sourceFile: "assets/Al_Shahriar_Sowan_Resume_Professional...pdf",
-    publicPath: "/Al-Shahriar-Sowan-Resume.pdf",
-    downloadName: "Al-Shahriar-Sowan-Resume.pdf",
+    publicPath: "/Al_Shahriar_Sowan_Resume.pdf",
+    downloadName: "Al_Shahriar_Sowan_Resume.pdf",
   },
   metaDescription:
     "Al Shahriar Sowan is an independent software developer in Bangladesh, building AI tools, web applications, and software including SeedCode CLI, SeedCode Chat, and IntLLM."
@@ -362,7 +361,7 @@ export const products: readonly Product[] = [
     name: "SeedMail", slug: "seedmail", category: "Email Technology",
     description: "An email-related web project developed under the SeedMail brand, expanding the Seed ecosystem into email-focused technology.",
     tags: ["Email", "Web Development", "Seed Ecosystem"],
-    website: "http://mrseedmail.vercel.app/", github: "https://github.com/Alshahriar-07/Seed-Mail",
+    website: "https://mrseedmail.vercel.app/", github: "https://github.com/Alshahriar-07/Seed-Mail",
   },
   {
     name: "Dorkey", slug: "dorkey", category: "Web Applications",
